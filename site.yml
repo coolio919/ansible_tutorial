@@ -5,6 +5,7 @@
   tasks:
 
   - name: install update (Ubuntu)
+    tags: always
     apt:
       upgrade: dist
       update_cache: yes
@@ -17,17 +18,20 @@
   tasks:
 
   - name: update repository index
+    #tags: always
     apt:
       update_cache: yes
     when: ansible_distribution in ["Ubuntu","Debian"]
 
-  - name:  install apache2 package
+  - name:  install apache2 and php package
+    tags: apache,apache2,ubuntu
     apt:
       name: apache2
       state: latest
     when: ansible_distribution == "Ubuntu"
 
   - name: add php support for apache
+    tags: php package
     apt:
       name: libapache2-mod-php
       state: latest
@@ -38,6 +42,7 @@
   tasks:
 
   - name: install samba package (Ubuntu)
+    tags: samba
     package:
       name: samba 
-      state: latest 
+      state: latest
